@@ -24,6 +24,20 @@ VstrexAudioProcessor::VstrexAudioProcessor()
                        )
 #endif
 {
+    addParameter (rotation_speed_ = new AudioParameterFloat("rotation_speed", // parameter ID
+                                                            "Rotation Speed", // parameter name
+                                                            0.0f,   // minimum value
+                                                            3.0f,   // maximum value
+                                                            0.125f)); // default value
+    
+    addParameter (running_speed_ = new AudioParameterFloat ("running_speed", // parameter ID
+                                                            "Running Speed", // parameter name
+                                                            0.0f,   // minimum value
+                                                            3.0f,   // maximum value
+                                                            0.5f)); // default value
+    
+    lpf_.resize(2);
+    tempo_ = 120.0;
 }
 
 VstrexAudioProcessor::~VstrexAudioProcessor()
@@ -97,6 +111,10 @@ void VstrexAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    rms_meter_ = std::make_unique<RMSMeter>(sampleRate, 30);
+    for(int ch = 0; ch < lpf_.size(); ++ch) {
+        lpf_[ch].setCoefficients(IIRCoefficients::makeLowPass(sampleRate, 500));
+    }
 }
 
 void VstrexAudioProcessor::releaseResources()
@@ -144,17 +162,24 @@ void VstrexAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer&
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer (channel);
-
-        // ..do something to the data...
+    for(int i = 0; i < buffer.getNumSamples(); ++i) {
+        double sum = 0;
+        for(int ch = 0; ch < totalNumInputChannels; ++ch) {
+            auto tmp = buffer.getReadPointer(ch)[i];
+            sum += lpf_[ch].processSingleSampleRaw(tmp);
+        }
+        rms_meter_->PushSample(sum);
+    }
+    
+    auto sec = buffer.getNumSamples() / getSampleRate();
+    auto decay = std::max<double>(0, rms_.load() - sec * 2.5);
+    rms_.store(jlimit(decay, 1.0, rms_meter_->GetRMS() * 1.1));
+    
+    auto ph = getPlayHead();
+    if(ph) {
+        AudioPlayHead::CurrentPositionInfo info;
+        ph->getCurrentPosition(info);
+        tempo_.store(info.bpm);
     }
 }
 

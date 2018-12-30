@@ -1,0 +1,9 @@
+[submodule "ext/Skeletal-Animation-Library"]
+	path = ext/Skeletal-Animation-Library
+	url = https://gitlab.com/eidheim/Skeletal-Animation-Library.git
+[submodule "ext/assimp"]
+	path = ext/assimp
+	url = https://github.com/assimp/assimp.git
+[submodule "ext/JUCE"]
+	path = ext/JUCE
+	url = https://github.com/hotwatermorning/JUCE

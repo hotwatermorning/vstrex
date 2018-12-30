@@ -1,16 +1,9 @@
-/*
-  ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
-
 #pragma once
 
+#include <atomic>
+
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "./RMS.h"
 
 //==============================================================================
 /**
@@ -54,6 +47,14 @@ public:
     //==============================================================================
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    double getRMS() const { return rms_.load(); };
+    AudioParameterFloat *rotation_speed_;
+    AudioParameterFloat *running_speed_;
+    std::unique_ptr<RMSMeter> rms_meter_;
+    std::atomic<double> rms_;
+    std::atomic<double> tempo_;
+    std::vector<IIRFilter> lpf_;
 
 private:
     //==============================================================================
