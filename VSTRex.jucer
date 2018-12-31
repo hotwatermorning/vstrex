@@ -5,6 +5,8 @@
               companyEmail="hotwatermorning@gmail.com" headerPath="../../ext/Skeletal-Animation-Library">
   <MAINGROUP id="q5EI8C" name="VSTRex">
     <GROUP id="{4A664D74-C4DC-9CCD-481E-91941FB58F35}" name="Source">
+      <FILE id="vyhNkF" name="Plugin.png" compile="0" resource="1" file="image/Plugin.png"/>
+      <FILE id="Pgx9gk" name="Plugin.ico" compile="0" resource="1" file="image/Plugin.ico"/>
       <FILE id="CP8Rg7" name="RMS.h" compile="0" resource="0" file="Source/RMS.h"/>
       <FILE id="m5agcY" name="Model.h" compile="0" resource="0" file="Source/Model.h"/>
       <FILE id="q1lFEE" name="Util.h" compile="0" resource="0" file="Source/Util.h"/>
@@ -20,7 +22,8 @@
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" customXcodeResourceFolders="./image&#10;./model"
-               externalLibraries="assimp&#10;IrrXML&#10;z">
+               externalLibraries="assimp&#10;IrrXML&#10;z" smallIcon="vyhNkF"
+               bigIcon="vyhNkF">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" headerPath="../../ext/Skeletal-Animation-Library&#10;../../ext/assimp/build_debug/install/include"
                        libraryPath="../../ext/assimp/build_debug/install/lib"/>
@@ -44,7 +47,8 @@
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2017 targetFolder="Builds/VisualStudio2017" externalLibraries="assimp-vc140-mt.lib&#10;IrrXML.lib&#10;zlibstatic.lib"
-            extraCompilerFlags="/utf-8" extraDefs="FREEGLUT_STATIC">
+            extraCompilerFlags="/utf-8" extraDefs="FREEGLUT_STATIC" smallIcon="vyhNkF"
+            bigIcon="vyhNkF">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" headerPath="../../ext/Skeletal-Animation-Library&#10;../../ext/assimp/build_debug_x64/install/include&#10;../../ext/FreeGLUT/freeglut/freeglut/build_debug_x64/install/include"
                        libraryPath="../../ext/assimp/build_debug_x64/install/lib&#10;../../ext/FreeGLUT/freeglut/freeglut/build_debug_x64/install/lib"
