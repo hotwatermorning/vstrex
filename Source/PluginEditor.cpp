@@ -1,6 +1,10 @@
 #include <mutex>
 #include <chrono>
+#if defined(_MSC_VER)
+#include <GL/glut.h>
+#else
 #include <GLUT/glut.h>
+#endif
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"

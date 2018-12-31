@@ -1,6 +1,10 @@
 #pragma once
 
+#if defined(_MSC_VER)
+#include <GL/glut.h>
+#else
 #include <GLUT/glut.h>
+#endif
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "skeletal_animation_model.hpp"
