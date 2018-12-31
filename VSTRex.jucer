@@ -43,7 +43,7 @@
         <MODULEPATH id="juce_audio_processors" path="ext\JUCE\modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <VS2017 targetFolder="Builds/VisualStudio2017" externalLibraries="assimp-vc140-mt.lib&#10;IrrXML.lib&#10;zlibstaticd.lib"
+    <VS2017 targetFolder="Builds/VisualStudio2017" externalLibraries="assimp-vc140-mt.lib&#10;IrrXML.lib&#10;zlibstatic.lib"
             extraCompilerFlags="/utf-8" extraDefs="FREEGLUT_STATIC">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" headerPath="../../ext/Skeletal-Animation-Library&#10;../../ext/assimp/build_debug_x64/install/include&#10;../../ext/FreeGLUT/freeglut/freeglut/build_debug_x64/install/include"
