@@ -1,7 +1,7 @@
 #include <mutex>
 #include <chrono>
 #if defined(_MSC_VER)
-#include <GL/glut.h>
+#include <GL/freeglut.h>
 #else
 #include <GLUT/glut.h>
 #endif
@@ -175,6 +175,7 @@ void RenderingComponent::renderOpenGL()
     
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+	glEnable(GL_CULL_FACE);
     glEnable(GL_TEXTURE_2D);
     
     //Setup projection matrix
@@ -192,8 +193,9 @@ void RenderingComponent::renderOpenGL()
     glMatrixMode(GL_MODELVIEW);
     
     glPushMatrix();
-　　 glRotatef(pimpl_->rotation_angle_ * 360, 0.0, 1.0, 0.0);
+    glRotatef(pimpl_->rotation_angle_ * 360, 0.0, 1.0, 0.0);
     auto const scale = 150 * (pimpl_->params_.get_rms_() * (1 - kDefaultScale) + kDefaultScale);
+	//glTranslatef(0, 0, 30);
     glScalef(scale, scale, scale);
     pimpl_->model_->drawFrame(fmod(pimpl_->running_time_, (kAnimationFrameLength / 30.0)) + (kAnimationFrameBegin / 30.0));
     glPopMatrix();

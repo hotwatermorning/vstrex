@@ -7,3 +7,6 @@
 [submodule "ext/JUCE"]
 	path = ext/JUCE
 	url = https://github.com/hotwatermorning/JUCE
+[submodule "ext/FreeGLUT"]
+	path = ext/FreeGLUT
+	url = https://github.com/dcnieho/FreeGLUT

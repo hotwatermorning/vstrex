@@ -1,7 +1,7 @@
 #pragma once
 
 #if defined(_MSC_VER)
-#include <GL/glut.h>
+#include <GL/freeglut.h>
 #else
 #include <GLUT/glut.h>
 #endif
