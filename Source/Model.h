@@ -51,7 +51,7 @@ public:
         for(unsigned int cdt=0;cdt<material->GetTextureCount(aiTextureType_DIFFUSE);cdt++) {
             aiString path;
             material->GetTexture(aiTextureType_DIFFUSE, cdt, &path); //Assumes external texture files
-            auto const texture_file = GetPluginDir().getChildFile("../Resources/model").getChildFile(path.C_Str());
+            auto const texture_file = GetModelPath().getParentDirectory().getChildFile(path.C_Str());
             JUCETexture tx(texture_file);
             diffuseTextures.push_back(tx);
         }

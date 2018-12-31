@@ -137,13 +137,13 @@ void RenderingComponent::newOpenGLContextCreated()
 #endif
     
     // load
-    auto model_path = GetPluginDir().getChildFile("../Resources/model/tyrannosaurus_anim_XNA.X");
+    auto model_path = GetModelPath();
     pimpl_->model_ = std::make_unique<JUCEModel>(model_path);
     
     int const w = getWidth();
     int const h = getHeight();
     
-    glEnable(GL_MULTISAMPLE);
+    //glEnable(GL_MULTISAMPLE);
     glViewport(0, 0, w, h);
     {
         auto lock = std::unique_lock<LockableImage>(*pimpl_->image_);
@@ -339,8 +339,6 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DrawingWindow)
 };
 
-constexpr char const *kLogoPath = "../Resources/image/logo.png";
-
 struct VstrexAudioProcessorEditor::Impl
 {
     Impl()
@@ -368,7 +366,7 @@ VstrexAudioProcessorEditor::VstrexAudioProcessorEditor (VstrexAudioProcessor& p)
     pimpl_->renderer_ = std::make_unique<RenderingWindow>(&pimpl_->image_, params);
     pimpl_->drawer_ = std::make_unique<DrawingWindow>(&pimpl_->image_);
     setSize (400, 160);
-    auto logo_file = GetPluginDir().getChildFile(kLogoPath);
+    auto logo_file = GetLogoPath();
     pimpl_->logo_ = ImageFileFormat::loadFrom(logo_file);
 }
 
