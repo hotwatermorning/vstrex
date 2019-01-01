@@ -2,6 +2,8 @@
 
 This is a project of VST.rex (Virtual Studio T.rex) plugin.
 
+<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">最近WordやVimにティラノサウルスが実装されたので、僕もDAW上にティラノサウルス呼べるようにした！！！！！ <a href="https://t.co/wKvhp4FS5y">pic.twitter.com/wKvhp4FS5y</a></p>&mdash; ほっと (@hotwatermorning) <a href="https://twitter.com/hotwatermorning/status/1079729217686786048?ref_src=twsrc%5Etfw">2018年12月31日</a></blockquote>
+
 # How to build?
 
 (Sorry, a detailed version of build instruction is under construction.)
