@@ -387,6 +387,10 @@ void VstrexAudioProcessorEditor::paint (Graphics& g)
         "freeglut\n"
         "    http://freeglut.sourceforge.net/";
         g.drawFittedText (credit, getLocalBounds().reduced(10), Justification::topLeft, 1);
+        
+        g.setColour (Colours::white);
+        g.setFont (12.0f);
+        g.drawFittedText(std::string("Version: ") + ProjectInfo::versionString, getLocalBounds().reduced(10), Justification::bottomRight, 1);
     }
 }
 
