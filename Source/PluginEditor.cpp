@@ -98,7 +98,6 @@ private:
 struct RenderingComponent::Impl
 {
     double last_time_;
-    bool initialized_ = false;
     OpenGLFrameBuffer frame_buffer_;
     LockableImage *image_;
     std::unique_ptr<JUCEModel> model_;
@@ -153,7 +152,6 @@ void RenderingComponent::newOpenGLContextCreated()
     pimpl_->last_time_ = get_clock_sec();
     
     pimpl_->frame_buffer_.initialise(openGLContext, w, h);
-    pimpl_->initialized_ = true;
 }
 
 void RenderingComponent::renderOpenGL()
@@ -181,7 +179,6 @@ void RenderingComponent::renderOpenGL()
     //Setup projection matrix
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    //45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
     gluPerspective(30.0, kImageWidth / (double)kImageHeight, 0.1, 100.0);
 
     //double x = JUCE_LIVE_CONSTANT(40.0);
@@ -195,7 +192,6 @@ void RenderingComponent::renderOpenGL()
     glPushMatrix();
     glRotatef(pimpl_->rotation_angle_ * 360, 0.0, 1.0, 0.0);
     auto const scale = 150 * (pimpl_->params_.get_rms_() * (1 - kDefaultScale) + kDefaultScale);
-	//glTranslatef(0, 0, 30);
     glScalef(scale, scale, scale);
     pimpl_->model_->drawFrame(fmod(pimpl_->running_time_, (kAnimationFrameLength / 30.0)) + (kAnimationFrameBegin / 30.0));
     glPopMatrix();
@@ -215,7 +211,7 @@ void RenderingComponent::renderOpenGL()
 
 void RenderingComponent::openGLContextClosing()
 {
-    pimpl_->initialized_ = false;
+    pimpl_->frame_buffer_.release();
     pimpl_->model_.reset();
 }
 
@@ -257,11 +253,6 @@ public:
         return styleFlags;
     }
     
-    void Detach()
-    {
-        clearContentComponent();
-    }
-    
     void paint(Graphics &g) override {
         g.fillAll(juce::Colours::transparentBlack);
     }
@@ -294,7 +285,6 @@ public:
         startTimerHz(60);
         mirror_ = Image(Image::ARGB, kImageWidth, kImageHeight, true);
         image_ = image;
-        //setBufferedToImage(true);
     }
     
     void timerCallback() override
@@ -317,13 +307,7 @@ public:
             g2.drawImageTransformed (*image_, transform4mirroring);
         }
         
-//        g.fillAll(juce::Colours::blue.withAlpha(0.1f));
-//        g.fillAll(juce::Colours::transparentBlack);
         g.drawImage(mirror_, getLocalBounds().toFloat());
-        
-        //g.fillAll(juce::Colours::transparentBlack);
-        //g.setColour(juce::Colours::black);
-        //g.drawEllipse(getLocalBounds().reduced(10).toFloat(), 10);
     }
     
     int getDesktopWindowStyleFlags() const override
@@ -331,7 +315,6 @@ public:
         auto styleFlags = DocumentWindow::getDesktopWindowStyleFlags();
         styleFlags &= ~ComponentPeer::windowHasDropShadow;
         styleFlags |= ComponentPeer::windowIsSemiTransparent;
-        //styleFlags |= ComponentPeer::windowIsTemporary;
         return styleFlags;
     }
     
@@ -372,9 +355,6 @@ VstrexAudioProcessorEditor::VstrexAudioProcessorEditor (VstrexAudioProcessor& p)
 
 VstrexAudioProcessorEditor::~VstrexAudioProcessorEditor()
 {
-//    if(pimpl_->renderer_) {
-//        pimpl_->renderer_->Detach();
-//    }
 }
 
 //==============================================================================
