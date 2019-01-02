@@ -2,7 +2,8 @@
 
 <JUCERPROJECT id="V7ymBC" name="VSTRex" projectType="audioplug" jucerVersion="5.4.1"
               companyName="diatonic.jp" companyCopyright="diatonic.jp" companyWebsite="diatonic.jp"
-              companyEmail="hotwatermorning@gmail.com" headerPath="../../ext/Skeletal-Animation-Library">
+              companyEmail="hotwatermorning@gmail.com" headerPath="../../ext/Skeletal-Animation-Library"
+              version="1.0.1">
   <MAINGROUP id="q5EI8C" name="VSTRex">
     <GROUP id="{4A664D74-C4DC-9CCD-481E-91941FB58F35}" name="Source">
       <FILE id="vyhNkF" name="Plugin.png" compile="0" resource="1" file="image/Plugin.png"/>
