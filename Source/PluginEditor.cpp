@@ -355,6 +355,8 @@ VstrexAudioProcessorEditor::VstrexAudioProcessorEditor (VstrexAudioProcessor& p)
 
 VstrexAudioProcessorEditor::~VstrexAudioProcessorEditor()
 {
+	pimpl_->drawer_.reset();
+	pimpl_->renderer_.reset();
 }
 
 //==============================================================================
