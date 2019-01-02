@@ -249,6 +249,7 @@ public:
     {
         auto styleFlags = DocumentWindow::getDesktopWindowStyleFlags();
         styleFlags |= ComponentPeer::windowIgnoresMouseClicks;
+		styleFlags &= ~ComponentPeer::windowAppearsOnTaskbar;
         styleFlags &= ~(ComponentPeer::windowHasDropShadow);
         return styleFlags;
     }
@@ -314,6 +315,7 @@ public:
     {
         auto styleFlags = DocumentWindow::getDesktopWindowStyleFlags();
         styleFlags &= ~ComponentPeer::windowHasDropShadow;
+		styleFlags &= ~ComponentPeer::windowAppearsOnTaskbar;
         styleFlags |= ComponentPeer::windowIsSemiTransparent;
         return styleFlags;
     }
