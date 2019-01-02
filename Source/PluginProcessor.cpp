@@ -37,6 +37,7 @@ VstrexAudioProcessor::VstrexAudioProcessor()
                                                             0.5f)); // default value
     
     lpf_.resize(2);
+    rms_ = 0;
     tempo_ = 120.0;
 }
 
