@@ -60,6 +60,7 @@ public:
         square_sum_ -= x;
         x = squared_sample;
         square_sum_ += x;
+        square_sum_ = std::max<double>(square_sum_, 0);
         hist_index_ = (hist_index_ + 1) % history_.size();
     }
     
